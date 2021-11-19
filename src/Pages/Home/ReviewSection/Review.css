@@ -1,0 +1,13 @@
+.single-review{
+    background-color: var(--side);
+    text-align: left;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+
+.review-grid{
+
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
