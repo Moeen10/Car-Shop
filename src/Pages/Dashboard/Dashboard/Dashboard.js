@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link, Switch, Route, useRouteMatch } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
@@ -8,6 +8,7 @@ import DashboardHome from '../DashboardHome/DashboardHome';
 import MakeAdmin from '../MakeAdmin/MakeAdmin';
 import ManageAllOrders from '../ManageAllOrders/ManageAllOrders';
 import ManageProducts from '../ManageProducts/ManageProducts';
+import Monitor from '../Monitor/Monitor';
 import MyOrders from '../MyOrders/MyOrders';
 import Payment from '../Payment/Payment';
 import Review from '../Review/Review';
@@ -16,9 +17,23 @@ import './Dashboard.css'
 
 const Dashboard = () => {
     let { path, url } = useRouteMatch();
-    const { logOut, admin } = useAuth();
+    const { logOut, admin,user } = useAuth();
 
     console.log(admin);
+    const [monitor,setMonitor]= useState(null);
+    useEffect(() => {
+      fetch("https://geolocation-db.com/json/d802faa0-10bd-11ec-b2fe-47a0872c6708")
+      .then(res => res.json())
+      .then(data =>  setMonitor(data));
+      console.log(monitor)
+      fetch('https://blooming-temple-36736.herokuapp.com/monitor', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(monitor)
+    })
+    }, [])
 
     return (
         <div >
@@ -91,7 +106,8 @@ const Dashboard = () => {
                         <Switch>
 
                             <Route exact path={path}>
-                                <DashboardHome></DashboardHome>
+                                <DashboardHome 
+                                monitor={monitor}></DashboardHome>
                             </Route>
 
 
@@ -106,6 +122,10 @@ const Dashboard = () => {
 
                             <Route path={`${path}/review`}>
                                 <Review></Review>
+                            </Route>
+
+                            <Route path={`${path}/minotor`}>
+                              <Monitor></Monitor>
                             </Route>
 
 
@@ -144,6 +164,15 @@ const Dashboard = () => {
 
 
 
+            </div>
+            <div>
+                <h1>{user?.email}</h1>        
+                <h4>City: {monitor?.city}</h4>
+                <h4>Device IP address:{monitor?.IPv4}</h4>
+                <h4>Country name : {monitor?.country_name}</h4>
+                <h4>Postal Code : {monitor?.postal}</h4>
+                <br />
+                <br />
             </div>
         </div >
     );

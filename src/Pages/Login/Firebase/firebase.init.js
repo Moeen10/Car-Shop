@@ -4,7 +4,7 @@ import firebaseConfig from "./firebase.config";
 
 
 const firebaseInitializeApplication = () => {
-
+  
     return initializeApp(firebaseConfig);
 }
 

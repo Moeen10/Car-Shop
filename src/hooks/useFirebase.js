@@ -1,10 +1,12 @@
 import firebaseInitializeApplication from "../Pages/Login/Firebase/firebase.init";
+import firebaseAnalysis from "../Pages/Login/Firebase/firebase.analysis"
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword } from "firebase/auth";
 import { useEffect, useState } from "react";
 
 
 
 firebaseInitializeApplication();
+firebaseAnalysis();
 const useFirebase = () => {
 
     const [user, setUser] = useState({});

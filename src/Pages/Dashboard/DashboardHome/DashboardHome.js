@@ -3,9 +3,13 @@ import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 import './DashBoardHome.css'
 
-const DashboardHome = () => {
-
+const DashboardHome = (props) => {
     const { user, admin } = useAuth();
+// const {city,IPv4,postal,country_name} =props.monitor;
+
+
+
+
     const [orders, setOrders] = useState([])
     const [isDeleted, setIsDeleted] = useState(false)
 
@@ -20,6 +24,7 @@ const DashboardHome = () => {
 
     }, [isDeleted])
 
+    console.log(user);
 
 
     // user orders
@@ -227,6 +232,16 @@ const DashboardHome = () => {
 
 
                 </div>
+            </div>
+
+            <div>
+                {/* <h1>{user?.email}</h1>         */}
+                {/* <h4>City: {city}</h4>
+                <h4>Device IP address:{IPv4}</h4>
+                <h4>Country name : {country_name}</h4>
+                <h4>Postal Code : {postal}</h4>
+                <br />
+                <br /> */}
             </div>
 
         </div >

@@ -1,10 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    // const [monitor,setMonitor]= useState(null);
+    // useEffect(() => {
+    //   fetch("https://geolocation-db.com/json/d802faa0-10bd-11ec-b2fe-47a0872c6708")
+    //   .then(res => res.json())
+    //   .then(data =>  setMonitor(data));
+    // //   console.log(monitor)
+    //   fetch('https://blooming-temple-36736.herokuapp.com/monitor', {
+    //     method: 'POST',
+    //     headers: {
+    //         'content-type': 'application/json'
+    //     },
+    //     body: JSON.stringify(monitor)
+    // })
+    // }, [])
 
     const { signInWithEmailPassword, setISloading, setError, setUser, error } = useAuth()
 
@@ -27,6 +42,7 @@ const Login = () => {
                 setUser(userCredential.user);
                 setISloading(false)
                 history.push(redirect_url)
+   
 
             })
             .catch((error) => {
